@@ -3,33 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import { Camera } from 'lucide-react';
 
-declare global {
-// eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    interface IntrinsicElements {
-      'model-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement>, HTMLElement> & {
-        src?: string;
-        alt?: string;
-        ar?: boolean;
-        'ar-modes'?: string;
-        'camera-controls'?: boolean;
-        'auto-rotate'?: boolean;
-        'shadow-intensity'?: string;
-        'shadow-softness'?: string;
-        'exposure'?: string;
-        'environment-image'?: string;
-        loading?: string;
-        reveal?: string;
-        'ios-src'?: string;
-        poster?: string;
-        slot?: string;
-        style?: React.CSSProperties;
-        onLoad?: () => void;
-      };
-    }
-  }
-}
-
 interface ARViewerProps {
   modelUrl: string;
   poster?: string;
