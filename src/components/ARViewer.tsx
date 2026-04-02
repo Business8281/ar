@@ -41,13 +41,15 @@ const ARViewer: React.FC<ARViewerProps> = ({ modelUrl, poster, alt }) => {
   }, [modelUrl]);
 
   return (
-    <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden rounded-2xl bg-[#0A0A0A] border border-white/5 shadow-2xl">
+    <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden rounded-3xl bg-[#0A0A0A] border border-white/5 shadow-2xl group">
+      {/* Premium Transparent Loader */}
       {!isLoaded && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0F0F0F] z-20">
-          <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-4" />
-          <p className="text-primary font-medium animate-pulse tracking-widest text-xs uppercase">Initializing AR Reality...</p>
+        <div className="absolute top-6 right-6 z-20 flex items-center gap-3 glass-dark px-4 py-2 rounded-full border border-white/10 animate-in fade-in duration-500">
+          <div className="w-4 h-4 border-2 border-primary/20 border-t-primary rounded-full animate-spin" />
+          <span className="text-[10px] font-bold text-white/70 uppercase tracking-widest">Optimizing Reality...</span>
         </div>
       )}
+      
       <model-viewer
         ref={modelRef}
         src={modelUrl}
@@ -65,7 +67,7 @@ const ARViewer: React.FC<ARViewerProps> = ({ modelUrl, poster, alt }) => {
         reveal="auto"
         poster={poster}
         enable-pan
-        style={{ width: '100%', height: '100%', outline: 'none', background: '#0F0F0F' }}
+        style={{ width: '100%', height: '100%', outline: 'none', background: 'transparent' }}
       >
         <div 
           slot="ar-button"
