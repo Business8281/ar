@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useEffect, useState, useRef } from 'react';
-import { Camera, RefreshCcw } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Camera } from 'lucide-react';
 
 interface ARViewerProps {
   modelUrl: string;
@@ -11,107 +11,79 @@ interface ARViewerProps {
 
 const ARViewer: React.FC<ARViewerProps> = ({ modelUrl, poster, alt }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [cameraActive, setCameraActive] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const modelRef = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const modelRef = React.useRef<HTMLElement>(null);
 
   useEffect(() => {
     // Import model-viewer for client-side use
     import('@google/model-viewer');
   }, []);
 
-  const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ 
-        video: { facingMode: 'environment' } 
-      });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        setCameraActive(true);
-        setError(null);
-      }
-    } catch (err) {
-      console.error('Camera access denied:', err);
-      setError('Camera access required for Real-Time AR');
-    }
-  };
-
   useEffect(() => {
     const viewer = modelRef.current;
     if (!viewer) return;
 
     const handleLoad = () => {
+      console.log('Model loaded successfully');
       setIsLoaded(true);
     };
 
+    const handleError = (error: any) => {
+      console.error('Model failed to load:', error);
+    };
+
     viewer.addEventListener('load', handleLoad);
-    return () => viewer.removeEventListener('load', handleLoad);
+    viewer.addEventListener('error', handleError);
+
+    return () => {
+      viewer.removeEventListener('load', handleLoad);
+      viewer.removeEventListener('error', handleError);
+    };
   }, [modelUrl]);
 
   return (
-    <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden rounded-3xl bg-black border border-white/5 shadow-2xl group flex flex-col items-center justify-center">
-      {/* Background Video for Inline AR */}
-      <video
-        ref={videoRef}
-        autoPlay
-        playsInline
-        muted
-        className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${cameraActive ? 'opacity-50' : 'opacity-0'}`}
-      />
-
-      {/* Loading Overlay */}
+    <div className="relative w-full h-[400px] md:h-[600px] overflow-hidden rounded-2xl bg-[#0A0A0A] border border-white/5 shadow-2xl">
       {!isLoaded && (
-        <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-          <div className="w-8 h-8 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#0F0F0F] z-20">
+          <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin mb-4" />
+          <p className="text-primary font-medium animate-pulse tracking-widest text-xs uppercase">Initializing AR Reality...</p>
         </div>
       )}
-      
       <model-viewer
         ref={modelRef}
         src={modelUrl}
-        alt={alt || "3D Product"}
+        alt={alt || "3D Food Model"}
         ar
-        ar-modes="webxr quick-look scene-viewer"
+        ar-modes="webxr scene-viewer quick-look"
         ar-placement="floor"
-        ar-scale="fixed"
         camera-controls
         auto-rotate
-        shadow-intensity="1.5"
-        exposure="1"
+        shadow-intensity="2"
+        shadow-softness="1"
+        exposure="1.2"
         environment-image="neutral"
         loading="eager"
         reveal="auto"
         poster={poster}
         enable-pan
-        touch-action="none"
-        style={{ width: '100%', height: '100%', outline: 'none', background: 'transparent' }}
+        style={{ width: '100%', height: '100%', outline: 'none', background: '#0F0F0F' }}
       >
-        {/* Real-Time AR Toggle */}
-        <div className="absolute top-6 left-1/2 -translate-x-1/2 z-30 pointer-events-none">
-          {!cameraActive && (
-            <button 
-              onClick={(e) => {
-                e.stopPropagation();
-                startCamera();
-              }}
-              className="pointer-events-auto glass-dark text-[10px] font-black text-white/80 px-6 py-2 rounded-full border border-white/10 hover:bg-white/10 transition-colors uppercase tracking-[0.2em] flex items-center gap-2"
-            >
-              <Camera size={14} /> Enable Reality Mode
-            </button>
-          )}
-          {error && (
-            <span className="text-[10px] text-red-500 font-bold bg-black/80 px-4 py-2 rounded-full border border-red-500/30">
-              {error}
+        <div 
+          slot="ar-button"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 w-full px-6"
+        >
+          <button className="glass border-primary/50 text-white px-10 py-5 rounded-2xl font-black shadow-[0_0_50px_rgba(255,77,77,0.3)] flex items-center gap-3 hover:bg-primary transition-all active:scale-95 group overflow-hidden relative">
+            <span className="relative z-10 flex items-center gap-3 text-lg">
+              <Camera size={24} className="group-hover:rotate-12 transition-transform" /> 
+              ACTIVATE REAL AR
             </span>
-          )}
-        </div>
-
-        {/* Existing System AR Button Slot (Renamed to "View in 3D Space") */}
-        <div slot="ar-button" className="absolute bottom-8 left-1/2 -translate-x-1/2 px-6 w-full max-w-xs">
-          <button className="w-full glass border-primary/50 text-white px-8 py-4 rounded-2xl font-black shadow-[0_0_40px_rgba(255,77,77,0.2)] flex items-center justify-center gap-3 hover:bg-primary transition-all active:scale-95 text-sm uppercase">
-            <RefreshCcw size={18} /> Full Space View
+            <div className="absolute inset-0 bg-primary opacity-0 group-hover:opacity-100 transition-opacity -z-0" />
           </button>
+          <div className="flex items-center gap-2 bg-black/60 backdrop-blur-xl px-4 py-2 rounded-full border border-white/10">
+            <div className="w-2 h-2 rounded-full bg-green-500 animate-ping" />
+            <p className="text-[10px] text-white/80 font-bold uppercase tracking-[0.2em]">
+              LiDAR Depth Sensing Active
+            </p>
+          </div>
         </div>
       </model-viewer>
     </div>
@@ -119,4 +91,3 @@ const ARViewer: React.FC<ARViewerProps> = ({ modelUrl, poster, alt }) => {
 };
 
 export default ARViewer;
-
