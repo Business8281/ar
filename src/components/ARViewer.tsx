@@ -57,6 +57,7 @@ const ARViewer: React.FC<ARViewerProps> = ({ modelUrl, poster, alt }) => {
         ar
         ar-modes="webxr scene-viewer quick-look"
         ar-placement="floor"
+        ar-scale="fixed"
         camera-controls
         auto-rotate
         shadow-intensity="2"
@@ -67,6 +68,7 @@ const ARViewer: React.FC<ARViewerProps> = ({ modelUrl, poster, alt }) => {
         reveal="auto"
         poster={poster}
         enable-pan
+        touch-action="none"
         style={{ width: '100%', height: '100%', outline: 'none', background: 'transparent' }}
       >
         <div 

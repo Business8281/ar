@@ -7,7 +7,7 @@ export const MENU_ITEMS = [
     image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=800&auto=format&fit=crop',
     description: 'A juicy flame-grilled beef patty with fresh lettuce, tomato, onions, and our secret house sauce.',
     calories: 650,
-    model3D: 'https://raw.githubusercontent.com/pmndrs/drei-assets/master/burger.glb'
+    model3D: 'https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/2.0/Burger/glTF-Binary/Burger.glb'
   },
   {
     id: 'burger-2',
@@ -17,7 +17,7 @@ export const MENU_ITEMS = [
     image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?q=80&w=800&auto=format&fit=crop',
     description: 'Double melted cheddar cheese on a premium Angus beef patty with caramelized onions.',
     calories: 780,
-    model3D: 'https://raw.githubusercontent.com/pmndrs/drei-assets/master/burger.glb'
+    model3D: 'https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/2.0/Burger/glTF-Binary/Burger.glb'
   },
   {
     id: 'pizza-1',
@@ -27,7 +27,7 @@ export const MENU_ITEMS = [
     image: 'https://images.unsplash.com/photo-1604068549290-dea0e4a305ca?q=80&w=800&auto=format&fit=crop',
     description: 'Traditional thin-crust pizza with San Marzano tomatoes, fresh mozzarella, and aromatic basil.',
     calories: 1200,
-    model3D: 'https://raw.githubusercontent.com/pmndrs/drei-assets/master/pizza.glb'
+    model3D: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Food/glTF-Binary/Food.glb'
   },
   {
     id: 'pizza-2',
@@ -37,7 +37,7 @@ export const MENU_ITEMS = [
     image: 'https://images.unsplash.com/photo-1628840042765-356cda07504e?q=80&w=800&auto=format&fit=crop',
     description: 'Loaded with crispy beef pepperoni and an extra layer of mozzarella cheese.',
     calories: 1450,
-    model3D: 'https://raw.githubusercontent.com/pmndrs/drei-assets/master/pizza.glb'
+    model3D: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Food/glTF-Binary/Food.glb'
   },
   {
     id: 'biryani-1',
@@ -57,6 +57,6 @@ export const MENU_ITEMS = [
     image: 'https://images.unsplash.com/photo-1551024709-8f23befc6f87?q=80&w=800&auto=format&fit=crop',
     description: 'Refreshing blend of lime, fresh mint leaves, and pure cane sugar with soda.',
     calories: 150,
-    model3D: 'https://raw.githubusercontent.com/pmndrs/drei-assets/master/soda-can.glb'
+    model3D: 'https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/2.0/WaterBottle/glTF-Binary/WaterBottle.glb'
   }
 ];
