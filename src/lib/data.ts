@@ -47,7 +47,7 @@ export const MENU_ITEMS = [
     image: 'https://images.unsplash.com/photo-1563379091339-03b21bc4a4f8?q=80&w=800&auto=format&fit=crop',
     description: 'Fragrant Basmati rice cooked with succulent chicken and exotic Hyderabadi spices.',
     calories: 850,
-    model3D: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Cake/glTF-Binary/Cake.glb'
+    model3D: 'https://raw.githubusercontent.com/KhronosGroup/glTF-Sample-Models/master/2.0/Food/glTF-Binary/Food.glb'
   },
   {
     id: 'drink-1',
@@ -60,3 +60,4 @@ export const MENU_ITEMS = [
     model3D: 'https://modelviewer.dev/shared-assets/models/glTF-Sample-Models/2.0/WaterBottle/glTF-Binary/WaterBottle.glb'
   }
 ];
+
